@@ -35,8 +35,7 @@ def get_backup(url, port, database_name, master_password):
         print 'Database backup completed.'
         print 'Database location', sys.path[0] + os.sep + database_name
 
-# there is no actual need to get the server version for the time being since the interface is the same
-# but it will be used just to inform the client of the server she is interacting with.
+
 def get_server_version(url, port):
     try:
         common = xmlrpclib.ServerProxy('{}/xmlrpc/common'.format(url + ':' + str(port)))
