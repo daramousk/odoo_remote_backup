@@ -14,9 +14,12 @@ def print_loading():
 def get_backup(url, port, database_name, master_password):
     try:
         print 'getbackup started'
-        get_server_version(url, port)
+        version_number = get_server_version(url, port)
         # TODO get database format (zip, dump, with filestore)
-        data = urllib.urlencode({'backup_db':database_name, 'backup_pwd':master_password, 'token': None}, True)
+        if version_number == 9:
+            data = urllib.urlencode({'name':database_name, 'master_pwd':master_password})
+        else:
+            data = urllib.urlencode({'backup_db':database_name, 'backup_pwd':master_password, 'token': None}, True)
         request = urllib2.Request(url + ':%s' % (port) + '/web/database/backup' , data=data)
         print 'Getting backup from:'
         print url, ':', port
@@ -44,6 +47,8 @@ def get_server_version(url, port):
     except xmlrpclib.Fault, e:
         print 'Could not get version info'
         print e
+    else:
+        return version[0]
 
 def main(url, port, database_name, master_password):
     if 'http://' not in url: url = 'http://' + url
