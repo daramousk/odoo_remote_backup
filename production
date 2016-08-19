@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <title>Odoo</title>
+  <link rel="shortcut icon" href="/web/static/src/img/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="/web/static/lib/fontawesome/css/font-awesome.css">
+  <link rel="stylesheet" href="/web/static/lib/bootstrap/css/bootstrap.css">
+  <script src="/web/static/lib/jquery/jquery.js" type="text/javascript"></script>
+  <script src="/web/static/lib/bootstrap/js/modal.js"></script>
+  <script src="/web/static/lib/bootstrap/js/tooltip.js"></script>
+  <script src="/web/static/lib/bootstrap/js/dropdown.js"></script>
+  <script type="text/javascript">
+  $(function() {
+      // Little eye
+      $('body').on('mousedown','.o_little_eye',function(ev) {
+          $(ev.target).siblings('input').prop('type','text');
+      });
+      $('body').on('mouseup','.o_little_eye',function(ev) {
+          $(ev.target).siblings('input').prop('type','password');
+      });
+      // db modal
+      $('body').on('click','.o_database_action', function(ev) {
+          ev.preventDefault();
+          var db = $(ev.currentTarget).data('db');
+          var target = $(ev.currentTarget).data('target');
+          $(target).find('input[name=name]').val(db);
+          $(target).modal();
+      });
+      // close modal on submit
+      $('.modal').on('click','input[type="submit"]', function(ev) {
+          var modal  = $(this).parentsUntil('body', '.modal');
+          if (modal.hasClass('o_database_backup')) {
+            $(modal).modal('hide');
+            $('.list-group').before("<div class='alert alert-info'>The backup may take some time before being ready</div>");
+          }
+      });
+  });
+  </script>
+</head>
+
+
+
+
+
+
+<body class="container">
+
+  <!-- Database List -->
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3 o_database_list">
+      <div class="text-center">
+        <img src="/web/static/src/img/logo2.png" class="img-responsive center-block"/>
+      </div>
+      
+      <div class="alert alert-warning">
+      Warning, your Odoo database manager is not protected.
+      Please <a href="#" data-toggle="modal" data-target=".o_database_master">set a master password</a>
+      to secure it.
+      </div>
+      
+      
+      <div class="alert alert-danger">Database backup error: &#39;NoneType&#39; object has no attribute &#39;__getitem__&#39;</div>
+      
+      
+        <div class="list-group">
+          
+          <a href="/web?db=V14" class="list-group-item">
+            V14
+            
+            <div class="text-right pull-right">
+            <span data-db="V14" data-target=".o_database_backup" class="o_database_action btn-link"><i class="fa fa-floppy-o fa-fw"></i> Backup</span>
+            <span data-db="V14" data-target=".o_database_duplicate" class="o_database_action btn-link"><i class="fa fa-files-o fa-fw"></i> Duplicate</span>
+            <span data-db="V14" data-target=".o_database_delete" class="o_database_action btn-link"><i class="fa fa-trash-o fa-fw"></i> Delete</span>
+            </div>
+            
+          </a>
+          
+          <a href="/web?db=dginsur_v8" class="list-group-item">
+            dginsur_v8
+            
+            <div class="text-right pull-right">
+            <span data-db="dginsur_v8" data-target=".o_database_backup" class="o_database_action btn-link"><i class="fa fa-floppy-o fa-fw"></i> Backup</span>
+            <span data-db="dginsur_v8" data-target=".o_database_duplicate" class="o_database_action btn-link"><i class="fa fa-files-o fa-fw"></i> Duplicate</span>
+            <span data-db="dginsur_v8" data-target=".o_database_delete" class="o_database_action btn-link"><i class="fa fa-trash-o fa-fw"></i> Delete</span>
+            </div>
+            
+          </a>
+          
+          <a href="/web?db=exoclick" class="list-group-item">
+            exoclick
+            
+            <div class="text-right pull-right">
+            <span data-db="exoclick" data-target=".o_database_backup" class="o_database_action btn-link"><i class="fa fa-floppy-o fa-fw"></i> Backup</span>
+            <span data-db="exoclick" data-target=".o_database_duplicate" class="o_database_action btn-link"><i class="fa fa-files-o fa-fw"></i> Duplicate</span>
+            <span data-db="exoclick" data-target=".o_database_delete" class="o_database_action btn-link"><i class="fa fa-trash-o fa-fw"></i> Delete</span>
+            </div>
+            
+          </a>
+          
+          <a href="/web?db=fix" class="list-group-item">
+            fix
+            
+            <div class="text-right pull-right">
+            <span data-db="fix" data-target=".o_database_backup" class="o_database_action btn-link"><i class="fa fa-floppy-o fa-fw"></i> Backup</span>
+            <span data-db="fix" data-target=".o_database_duplicate" class="o_database_action btn-link"><i class="fa fa-files-o fa-fw"></i> Duplicate</span>
+            <span data-db="fix" data-target=".o_database_delete" class="o_database_action btn-link"><i class="fa fa-trash-o fa-fw"></i> Delete</span>
+            </div>
+            
+          </a>
+          
+          <a href="/web?db=fixables" class="list-group-item">
+            fixables
+            
+            <div class="text-right pull-right">
+            <span data-db="fixables" data-target=".o_database_backup" class="o_database_action btn-link"><i class="fa fa-floppy-o fa-fw"></i> Backup</span>
+            <span data-db="fixables" data-target=".o_database_duplicate" class="o_database_action btn-link"><i class="fa fa-files-o fa-fw"></i> Duplicate</span>
+            <span data-db="fixables" data-target=".o_database_delete" class="o_database_action btn-link"><i class="fa fa-trash-o fa-fw"></i> Delete</span>
+            </div>
+            
+          </a>
+          
+          <a href="/web?db=production" class="list-group-item">
+            production
+            
+            <div class="text-right pull-right">
+            <span data-db="production" data-target=".o_database_backup" class="o_database_action btn-link"><i class="fa fa-floppy-o fa-fw"></i> Backup</span>
+            <span data-db="production" data-target=".o_database_duplicate" class="o_database_action btn-link"><i class="fa fa-files-o fa-fw"></i> Duplicate</span>
+            <span data-db="production" data-target=".o_database_delete" class="o_database_action btn-link"><i class="fa fa-trash-o fa-fw"></i> Delete</span>
+            </div>
+            
+          </a>
+          
+          <a href="/web?db=spglive" class="list-group-item">
+            spglive
+            
+            <div class="text-right pull-right">
+            <span data-db="spglive" data-target=".o_database_backup" class="o_database_action btn-link"><i class="fa fa-floppy-o fa-fw"></i> Backup</span>
+            <span data-db="spglive" data-target=".o_database_duplicate" class="o_database_action btn-link"><i class="fa fa-files-o fa-fw"></i> Duplicate</span>
+            <span data-db="spglive" data-target=".o_database_delete" class="o_database_action btn-link"><i class="fa fa-trash-o fa-fw"></i> Delete</span>
+            </div>
+            
+          </a>
+          
+        </div>
+        
+        <div class="text-left">
+          <button type="button" data-toggle="modal" data-target=".o_database_create" class="btn btn-sm btn-primary">
+            Create Database
+          </button>
+          <button type="button" data-toggle="modal" data-target=".o_database_restore" class="btn btn-sm btn-primary">
+            Restore Database
+          </button>
+          <button type="button" data-toggle="modal" data-target=".o_database_master" class="btn btn-sm btn-primary">
+            Set Master Password
+          </button>
+        </div>
+        
+      
+    </div>
+  </div>
+
+  <!-- Create -->
+  <div class="modal fade o_database_create" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <form role="form" action="/web/database/create" method="post">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Create Database</h4>
+          </div>
+          <div class="modal-body">
+            <p>Odoo is up and running! <br />
+  Create a new database by filling out the form,
+  you'll be able to install your first app in a minute.</p>
+  <div class="form-group">
+    
+      <input type="hidden" name="master_pwd" class="form-control" value="admin"/>
+    
+  </div>
+  <div class="form-group">
+    <div class="row">
+      <div class="col-md-12">
+        <label for="name" class="control-label">Database Name</label>
+        <input id="name" type="text" name="name" class="form-control" required="required" autocomplete="off"/>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="row">
+      <div class="col-md-12">
+        <label for="login" class="control-label">Email</label>
+        <input id="login" type="text" name="login" class="form-control" autocomplete="off"/>
+      </div>
+    </div>
+  </div>
+  <div class="form-group has-feedback">
+    <label for="password" class="control-label">Password</label>
+    <input id="password" type="password" name="password" class="form-control" required="required" autocomplete="off"/>
+    <span class="fa fa-eye o_little_eye form-control-feedback" aria-hidden="true" style="cursor: pointer; pointer-events: auto"></span>
+  </div>
+  <div class="form-group">
+    <div class="row">
+      <div class="col-md-6">
+        <label for="lang" class="control-label">Language</label>
+        <select id="lang" name="lang" class="form-control" required="required" autocomplete="off">
+          
+              <option value="sq_AL">Albanian / Shqip</option>
+          
+              <option value="am_ET">Amharic / አምሃርኛ</option>
+          
+              <option value="ar_SY">Arabic / الْعَرَبيّة</option>
+          
+              <option value="eu_ES">Basque / Euskara</option>
+          
+              <option value="bs_BA">Bosnian / bosanski jezik</option>
+          
+              <option value="bg_BG">Bulgarian / български език</option>
+          
+              <option value="my_MM">Burmese / မြန်မာဘာသာ</option>
+          
+              <option value="ca_ES">Catalan / Català</option>
+          
+              <option value="zh_CN">Chinese (CN) / 简体中文</option>
+          
+              <option value="zh_HK">Chinese (HK)</option>
+          
+              <option value="zh_TW">Chinese (TW) / 正體字</option>
+          
+              <option value="hr_HR">Croatian / hrvatski jezik</option>
+          
+              <option value="cs_CZ">Czech / Čeština</option>
+          
+              <option value="da_DK">Danish / Dansk</option>
+          
+              <option value="nl_BE">Dutch (BE) / Nederlands (BE)</option>
+          
+              <option value="nl_NL">Dutch / Nederlands</option>
+          
+              <option value="en_AU">English (AU)</option>
+          
+              <option value="en_GB">English (UK)</option>
+          
+              <option selected="selected" value="en_US">English (US)</option>
+          
+              <option value="et_EE">Estonian / Eesti keel</option>
+          
+              <option value="fi_FI">Finnish / Suomi</option>
+          
+              <option value="fr_BE">French (BE) / Français (BE)</option>
+          
+              <option value="fr_CA">French (CA) / Français (CA)</option>
+          
+              <option value="fr_CH">French (CH) / Français (CH)</option>
+          
+              <option value="fr_FR">French / Français</option>
+          
+              <option value="gl_ES">Galician / Galego</option>
+          
+              <option value="ka_GE">Georgian / ქართული ენა</option>
+          
+              <option value="de_CH">German (CH) / Deutsch (CH)</option>
+          
+              <option value="de_DE">German / Deutsch</option>
+          
+              <option value="el_GR">Greek / Ελληνικά</option>
+          
+              <option value="gu_IN">Gujarati / ગુજરાતી</option>
+          
+              <option value="he_IL">Hebrew / עִבְרִי</option>
+          
+              <option value="hi_IN">Hindi / हिंदी</option>
+          
+              <option value="hu_HU">Hungarian / Magyar</option>
+          
+              <option value="id_ID">Indonesian / Bahasa Indonesia</option>
+          
+              <option value="it_IT">Italian / Italiano</option>
+          
+              <option value="ja_JP">Japanese / 日本語</option>
+          
+              <option value="kab_DZ">Kabyle / Taqbaylit</option>
+          
+              <option value="ko_KP">Korean (KP) / 한국어 (KP)</option>
+          
+              <option value="ko_KR">Korean (KR) / 한국어 (KR)</option>
+          
+              <option value="lo_LA">Lao / ພາສາລາວ</option>
+          
+              <option value="lv_LV">Latvian / latviešu valoda</option>
+          
+              <option value="lt_LT">Lithuanian / Lietuvių kalba</option>
+          
+              <option value="mk_MK">Macedonian / македонски јазик</option>
+          
+              <option value="mn_MN">Mongolian / монгол</option>
+          
+              <option value="nb_NO">Norwegian Bokmål / Norsk bokmål</option>
+          
+              <option value="fa_IR">Persian / فارس</option>
+          
+              <option value="pl_PL">Polish / Język polski</option>
+          
+              <option value="pt_BR">Portuguese (BR) / Português (BR)</option>
+          
+              <option value="pt_PT">Portuguese / Português</option>
+          
+              <option value="ro_RO">Romanian / română</option>
+          
+              <option value="ru_RU">Russian / русский язык</option>
+          
+              <option value="sr_RS">Serbian (Cyrillic) / српски</option>
+          
+              <option value="sr@latin">Serbian (Latin) / srpski</option>
+          
+              <option value="sk_SK">Slovak / Slovenský jazyk</option>
+          
+              <option value="sl_SI">Slovenian / slovenščina</option>
+          
+              <option value="es_AR">Spanish (AR) / Español (AR)</option>
+          
+              <option value="es_BO">Spanish (BO) / Español (BO)</option>
+          
+              <option value="es_CL">Spanish (CL) / Español (CL)</option>
+          
+              <option value="es_CO">Spanish (CO) / Español (CO)</option>
+          
+              <option value="es_CR">Spanish (CR) / Español (CR)</option>
+          
+              <option value="es_DO">Spanish (DO) / Español (DO)</option>
+          
+              <option value="es_EC">Spanish (EC) / Español (EC)</option>
+          
+              <option value="es_GT">Spanish (GT) / Español (GT)</option>
+          
+              <option value="es_MX">Spanish (MX) / Español (MX)</option>
+          
+              <option value="es_PA">Spanish (PA) / Español (PA)</option>
+          
+              <option value="es_PE">Spanish (PE) / Español (PE)</option>
+          
+              <option value="es_PY">Spanish (PY) / Español (PY)</option>
+          
+              <option value="es_UY">Spanish (UY) / Español (UY)</option>
+          
+              <option value="es_VE">Spanish (VE) / Español (VE)</option>
+          
+              <option value="es_ES">Spanish / Español</option>
+          
+              <option value="sv_SE">Swedish / svenska</option>
+          
+              <option value="te_IN">Telugu / తెలుగు</option>
+          
+              <option value="th_TH">Thai / ภาษาไทย</option>
+          
+              <option value="tr_TR">Turkish / Türkçe</option>
+          
+              <option value="uk_UA">Ukrainian / українська</option>
+          
+              <option value="vi_VN">Vietnamese / Tiếng Việt</option>
+          
+        </select>
+      </div>
+      <div class="col-md-6">
+          <label for="country" class="control-label">Country</label>
+          <select id="country" name="country_code" class="form-control" autocomplete="off">
+              <option value=""></option>
+            
+              <option value="af">Afghanistan, Islamic State of</option>
+            
+              <option value="al">Albania</option>
+            
+              <option value="dz">Algeria</option>
+            
+              <option value="as">American Samoa</option>
+            
+              <option value="ad">Andorra, Principality of</option>
+            
+              <option value="ao">Angola</option>
+            
+              <option value="ai">Anguilla</option>
+            
+              <option value="aq">Antarctica</option>
+            
+              <option value="ag">Antigua and Barbuda</option>
+            
+              <option value="ar">Argentina</option>
+            
+              <option value="am">Armenia</option>
+            
+              <option value="aw">Aruba</option>
+            
+              <option value="au">Australia</option>
+            
+              <option value="at">Austria</option>
+            
+              <option value="az">Azerbaijan</option>
+            
+              <option value="bs">Bahamas</option>
+            
+              <option value="bh">Bahrain</option>
+            
+              <option value="bd">Bangladesh</option>
+            
+              <option value="bb">Barbados</option>
+            
+              <option value="by">Belarus</option>
+            
+              <option value="be">Belgium</option>
+            
+              <option value="bz">Belize</option>
+            
+              <option value="bj">Benin</option>
+            
+              <option value="bm">Bermuda</option>
+            
+              <option value="bt">Bhutan</option>
+            
+              <option value="bo">Bolivia</option>
+            
+              <option value="bq">Bonaire, Sint Eustatius and Saba</option>
+            
+              <option value="ba">Bosnia-Herzegovina</option>
+            
+              <option value="bw">Botswana</option>
+            
+              <option value="bv">Bouvet Island</option>
+            
+              <option value="br">Brazil</option>
+            
+              <option value="io">British Indian Ocean Territory</option>
+            
+              <option value="bn">Brunei Darussalam</option>
+            
+              <option value="bg">Bulgaria</option>
+            
+              <option value="bf">Burkina Faso</option>
+            
+              <option value="bi">Burundi</option>
+            
+              <option value="kh">Cambodia, Kingdom of</option>
+            
+              <option value="cm">Cameroon</option>
+            
+              <option value="ca">Canada</option>
+            
+              <option value="cv">Cape Verde</option>
+            
+              <option value="ky">Cayman Islands</option>
+            
+              <option value="cf">Central African Republic</option>
+            
+              <option value="td">Chad</option>
+            
+              <option value="cl">Chile</option>
+            
+              <option value="cn">China</option>
+            
+              <option value="cx">Christmas Island</option>
+            
+              <option value="cc">Cocos (Keeling) Islands</option>
+            
+              <option value="co">Colombia</option>
+            
+              <option value="km">Comoros</option>
+            
+              <option value="cg">Congo</option>
+            
+              <option value="cd">Congo, Democratic Republic of the</option>
+            
+              <option value="ck">Cook Islands</option>
+            
+              <option value="cr">Costa Rica</option>
+            
+              <option value="hr">Croatia</option>
+            
+              <option value="cu">Cuba</option>
+            
+              <option value="cw">Curaçao</option>
+            
+              <option value="cy">Cyprus</option>
+            
+              <option value="cz">Czech Republic</option>
+            
+              <option value="dk">Denmark</option>
+            
+              <option value="dj">Djibouti</option>
+            
+              <option value="dm">Dominica</option>
+            
+              <option value="do">Dominican Republic</option>
+            
+              <option value="tp">East Timor</option>
+            
+              <option value="ec">Ecuador</option>
+            
+              <option value="eg">Egypt</option>
+            
+              <option value="sv">El Salvador</option>
+            
+              <option value="gq">Equatorial Guinea</option>
+            
+              <option value="er">Eritrea</option>
+            
+              <option value="ee">Estonia</option>
+            
+              <option value="et">Ethiopia</option>
+            
+              <option value="fk">Falkland Islands</option>
+            
+              <option value="fo">Faroe Islands</option>
+            
+              <option value="fj">Fiji</option>
+            
+              <option value="fi">Finland</option>
+            
+              <option value="fr">France</option>
+            
+              <option value="gf">French Guyana</option>
+            
+              <option value="tf">French Southern Territories</option>
+            
+              <option value="ga">Gabon</option>
+            
+              <option value="gm">Gambia</option>
+            
+              <option value="ge">Georgia</option>
+            
+              <option value="de">Germany</option>
+            
+              <option value="gh">Ghana</option>
+            
+              <option value="gi">Gibraltar</option>
+            
+              <option value="gr">Greece</option>
+            
+              <option value="gl">Greenland</option>
+            
+              <option value="gd">Grenada</option>
+            
+              <option value="gp">Guadeloupe (French)</option>
+            
+              <option value="gu">Guam (USA)</option>
+            
+              <option value="gt">Guatemala</option>
+            
+              <option value="gg">Guernsey</option>
+            
+              <option value="gn">Guinea</option>
+            
+              <option value="gw">Guinea Bissau</option>
+            
+              <option value="gy">Guyana</option>
+            
+              <option value="ht">Haiti</option>
+            
+              <option value="hm">Heard and McDonald Islands</option>
+            
+              <option value="va">Holy See (Vatican City State)</option>
+            
+              <option value="hn">Honduras</option>
+            
+              <option value="hk">Hong Kong</option>
+            
+              <option value="hu">Hungary</option>
+            
+              <option value="is">Iceland</option>
+            
+              <option value="in">India</option>
+            
+              <option value="id">Indonesia</option>
+            
+              <option value="ir">Iran</option>
+            
+              <option value="iq">Iraq</option>
+            
+              <option value="ie">Ireland</option>
+            
+              <option value="im">Isle of Man</option>
+            
+              <option value="il">Israel</option>
+            
+              <option value="it">Italy</option>
+            
+              <option value="ci">Ivory Coast (Cote D&#39;Ivoire)</option>
+            
+              <option value="jm">Jamaica</option>
+            
+              <option value="jp">Japan</option>
+            
+              <option value="je">Jersey</option>
+            
+              <option value="jo">Jordan</option>
+            
+              <option value="kz">Kazakhstan</option>
+            
+              <option value="ke">Kenya</option>
+            
+              <option value="ki">Kiribati</option>
+            
+              <option value="kw">Kuwait</option>
+            
+              <option value="kg">Kyrgyz Republic (Kyrgyzstan)</option>
+            
+              <option value="la">Laos</option>
+            
+              <option value="lv">Latvia</option>
+            
+              <option value="lb">Lebanon</option>
+            
+              <option value="ls">Lesotho</option>
+            
+              <option value="lr">Liberia</option>
+            
+              <option value="ly">Libya</option>
+            
+              <option value="li">Liechtenstein</option>
+            
+              <option value="lt">Lithuania</option>
+            
+              <option value="lu">Luxembourg</option>
+            
+              <option value="mo">Macau</option>
+            
+              <option value="mk">Macedonia, the former Yugoslav Republic of</option>
+            
+              <option value="mg">Madagascar</option>
+            
+              <option value="mw">Malawi</option>
+            
+              <option value="my">Malaysia</option>
+            
+              <option value="mv">Maldives</option>
+            
+              <option value="ml">Mali</option>
+            
+              <option value="mt">Malta</option>
+            
+              <option value="mh">Marshall Islands</option>
+            
+              <option value="mq">Martinique (French)</option>
+            
+              <option value="mr">Mauritania</option>
+            
+              <option value="mu">Mauritius</option>
+            
+              <option value="yt">Mayotte</option>
+            
+              <option value="mx">Mexico</option>
+            
+              <option value="fm">Micronesia</option>
+            
+              <option value="md">Moldavia</option>
+            
+              <option value="mc">Monaco</option>
+            
+              <option value="mn">Mongolia</option>
+            
+              <option value="me">Montenegro</option>
+            
+              <option value="ms">Montserrat</option>
+            
+              <option value="ma">Morocco</option>
+            
+              <option value="mz">Mozambique</option>
+            
+              <option value="mm">Myanmar</option>
+            
+              <option value="na">Namibia</option>
+            
+              <option value="nr">Nauru</option>
+            
+              <option value="np">Nepal</option>
+            
+              <option value="nl">Netherlands</option>
+            
+              <option value="an">Netherlands Antilles</option>
+            
+              <option value="nt">Neutral Zone</option>
+            
+              <option value="nc">New Caledonia (French)</option>
+            
+              <option value="nz">New Zealand</option>
+            
+              <option value="ni">Nicaragua</option>
+            
+              <option value="ne">Niger</option>
+            
+              <option value="ng">Nigeria</option>
+            
+              <option value="nu">Niue</option>
+            
+              <option value="nf">Norfolk Island</option>
+            
+              <option value="kp">North Korea</option>
+            
+              <option value="mp">Northern Mariana Islands</option>
+            
+              <option value="no">Norway</option>
+            
+              <option value="om">Oman</option>
+            
+              <option value="pk">Pakistan</option>
+            
+              <option value="pw">Palau</option>
+            
+              <option value="ps">Palestinian Territory, Occupied</option>
+            
+              <option value="pa">Panama</option>
+            
+              <option value="pg">Papua New Guinea</option>
+            
+              <option value="py">Paraguay</option>
+            
+              <option value="pe">Peru</option>
+            
+              <option value="ph">Philippines</option>
+            
+              <option value="pn">Pitcairn Island</option>
+            
+              <option value="pl">Poland</option>
+            
+              <option value="pf">Polynesia (French)</option>
+            
+              <option value="pt">Portugal</option>
+            
+              <option value="pr">Puerto Rico</option>
+            
+              <option value="qa">Qatar</option>
+            
+              <option value="re">Reunion (French)</option>
+            
+              <option value="ro">Romania</option>
+            
+              <option value="ru">Russian Federation</option>
+            
+              <option value="rw">Rwanda</option>
+            
+              <option value="bl">Saint Barthélémy</option>
+            
+              <option value="sh">Saint Helena</option>
+            
+              <option value="kn">Saint Kitts &amp; Nevis Anguilla</option>
+            
+              <option value="lc">Saint Lucia</option>
+            
+              <option value="mf">Saint Martin (French part)</option>
+            
+              <option value="pm">Saint Pierre and Miquelon</option>
+            
+              <option value="st">Saint Tome (Sao Tome) and Principe</option>
+            
+              <option value="vc">Saint Vincent &amp; Grenadines</option>
+            
+              <option value="ws">Samoa</option>
+            
+              <option value="sm">San Marino</option>
+            
+              <option value="sa">Saudi Arabia</option>
+            
+              <option value="sn">Senegal</option>
+            
+              <option value="rs">Serbia</option>
+            
+              <option value="sc">Seychelles</option>
+            
+              <option value="sl">Sierra Leone</option>
+            
+              <option value="sg">Singapore</option>
+            
+              <option value="sx">Sint Maarten (Dutch part)</option>
+            
+              <option value="sk">Slovakia</option>
+            
+              <option value="si">Slovenia</option>
+            
+              <option value="sb">Solomon Islands</option>
+            
+              <option value="so">Somalia</option>
+            
+              <option value="za">South Africa</option>
+            
+              <option value="gs">South Georgia and the South Sandwich Islands</option>
+            
+              <option value="kr">South Korea</option>
+            
+              <option value="ss">South Sudan</option>
+            
+              <option value="es">Spain</option>
+            
+              <option value="lk">Sri Lanka</option>
+            
+              <option value="sd">Sudan</option>
+            
+              <option value="sr">Suriname</option>
+            
+              <option value="sj">Svalbard and Jan Mayen Islands</option>
+            
+              <option value="sz">Swaziland</option>
+            
+              <option value="se">Sweden</option>
+            
+              <option value="ch">Switzerland</option>
+            
+              <option value="sy">Syria</option>
+            
+              <option value="tw">Taiwan</option>
+            
+              <option value="tj">Tajikistan</option>
+            
+              <option value="tz">Tanzania</option>
+            
+              <option value="th">Thailand</option>
+            
+              <option value="tg">Togo</option>
+            
+              <option value="tk">Tokelau</option>
+            
+              <option value="to">Tonga</option>
+            
+              <option value="tt">Trinidad and Tobago</option>
+            
+              <option value="tn">Tunisia</option>
+            
+              <option value="tr">Turkey</option>
+            
+              <option value="tm">Turkmenistan</option>
+            
+              <option value="tc">Turks and Caicos Islands</option>
+            
+              <option value="tv">Tuvalu</option>
+            
+              <option value="um">USA Minor Outlying Islands</option>
+            
+              <option value="ug">Uganda</option>
+            
+              <option value="ua">Ukraine</option>
+            
+              <option value="ae">United Arab Emirates</option>
+            
+              <option value="gb">United Kingdom</option>
+            
+              <option value="us">United States</option>
+            
+              <option value="uy">Uruguay</option>
+            
+              <option value="uz">Uzbekistan</option>
+            
+              <option value="vu">Vanuatu</option>
+            
+              <option value="ve">Venezuela</option>
+            
+              <option value="vn">Vietnam</option>
+            
+              <option value="vg">Virgin Islands (British)</option>
+            
+              <option value="vi">Virgin Islands (USA)</option>
+            
+              <option value="wf">Wallis and Futuna Islands</option>
+            
+              <option value="eh">Western Sahara</option>
+            
+              <option value="ye">Yemen</option>
+            
+              <option value="yu">Yugoslavia</option>
+            
+              <option value="zr">Zaire</option>
+            
+              <option value="zm">Zambia</option>
+            
+              <option value="zw">Zimbabwe</option>
+            
+              <option value="ax">Åland Islands</option>
+            
+            </select>
+        </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="checkbox">
+      <label>
+        <input name="demo" type="checkbox" class="pull-right" value="1">
+        <span>Load demonstration data</span>
+        <span class="text-muted"> (Check this box to evaluate Odoo)</span>
+      </label>
+    </div>
+  </div>
+          </div>
+          <div class="modal-footer">
+            <input type="submit" value="Continue" class="btn btn-primary pull-right"/>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Restore -->
+  <div class="modal fade o_database_restore" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Restore Database</h4>
+        </div>
+        <form id="form_restore_db" role="form" action="/web/database/restore" method="post" enctype="multipart/form-data">
+          <div class="modal-body">
+            <div class="form-group">
+    
+      <input type="hidden" name="master_pwd" class="form-control" value="admin"/>
+    
+  </div>
+            <div class="form-group">
+              <label for="backup_file" class="control-label">File</label>
+              <input id="backup_file" type="file" name="backup_file" class="required"/>
+            </div>
+            <div class="form-group">
+              <label for="name" class="control-label">Database Name</label>
+              <input id="name" type="text" name="name" class="form-control" required="required"/>
+            </div>
+            <div class="form-group">
+                <label for="copy">This database might have been moved or copied.</label>
+                <p class="help-block">In order to avoid conflicts between databases, Odoo needs to know if this database was moved or copied.
+                If you don't know, answer "This database is a copy".</p>
+              <div class="radio">
+                <label>
+                  <input name="copy" type="radio" class="pull-right" value="true" checked="1">
+                  This database is a copy
+                </label>
+              </div>
+              <div class="radio">
+                <label>
+                  <input name="copy" type="radio" class="pull-right" value="false">
+                  This database was moved
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <input type="submit" value="Continue" class="btn btn-primary pull-right"/>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Master password -->
+  <div class="modal fade o_database_master" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Set Master Password</h4>
+        </div>
+        <form id="form_change_pwd" role="form" action="/web/database/change_password" method="post">
+          <div class="modal-body">
+            <p>The master password is required to create, delete, dump or restore databases.</p>
+            <div class="form-group">
+    
+      <input type="hidden" name="master_pwd" class="form-control" value="admin"/>
+    
+  </div>
+            <div class="form-group has-feedback">
+              <label for="master_pwd_new" class="control-label">New Master Password</label>
+              <input id="master_pwd_new" type="password" name="master_pwd_new" class="form-control" required="required" autocomplete="off"/>
+              <span class="fa fa-eye o_little_eye form-control-feedback" aria-hidden="true" style="cursor: pointer; pointer-events: auto"></span>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <input type="submit" value="Continue" class="btn btn-primary pull-right"/>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Duplicate DB -->
+  <div class="modal fade o_database_duplicate" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Duplicate Database</h4>
+        </div>
+        <form id="form-duplicate-db" role="form" action="/web/database/duplicate" method="post">
+          <div class="modal-body">
+            <div class="form-group">
+    
+      <input type="hidden" name="master_pwd" class="form-control" value="admin"/>
+    
+  </div>
+            <div class="form-group">
+              <label for="name" class="control-label">Database Name</label>
+              <input id="name" type="text" name="name" class="form-control" required="required" readonly="readonly"/>
+            </div>
+            <div class="form-group">
+              <label for="new_name" class="control-label">New Name</label>
+              <input id="new_name" type="text" name="new_name" class="form-control" required="required"/>
+            </div>
+          </div>
+          <div class="modal-footer">
+          <input type="submit" value="Continue" class="btn btn-primary pull-right"/>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Drop DB -->
+  <div class="modal fade o_database_delete" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Delete Database</h4>
+        </div>
+        <form id="form_drop_db" role="form" action="/web/database/drop" method="post">
+          <div class="modal-body">
+            <div class="form-group">
+    
+      <input type="hidden" name="master_pwd" class="form-control" value="admin"/>
+    
+  </div>
+            <div class="form-group">
+              <label for="name" class="control-label">Database</label>
+              <input id="name" type="text" name="name" class="form-control" required="required" readonly="readonly"/>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <input type="submit" value="Delete" class="btn btn-primary pull-right"/>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Backup DB -->
+  <div class="modal fade o_database_backup" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Backup Database</h4>
+        </div>
+        <form id="form_backup_db" role="form" action="/web/database/backup" method="post">
+          <div class="modal-body">
+            <div class="form-group">
+    
+      <input type="hidden" name="master_pwd" class="form-control" value="admin"/>
+    
+  </div>
+            <div class="form-group">
+              <label for="name" class="control-label">Database Name</label>
+              <input id="name" type="text" name="name" class="form-control" required="required" readonly="readonly"/>
+            </div>
+            <div class="form-group">
+              <label for="backup_format" class="control-label">Backup Format</label>
+              <select id="backup_format" name="backup_format" id="backup_format" class="form-control" required="required">
+                <option value="zip">zip (includes filestore)</option>
+                <option value="dump">pg_dump custom format (without filestore)</option>
+              </select>
+            </div>
+          </div>
+          <div class="modal-footer">
+          <input type="submit" value="Backup" class="btn btn-primary pull-right"/>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
