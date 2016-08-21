@@ -7,6 +7,7 @@ import sys
 import os
 import xmlrpclib
 import argparse
+import requests
 
 def print_loading():
     sys.stdout.write('.')
@@ -42,15 +43,20 @@ def restore_database(url, port, database_name, master_password, database_file_ur
     try:
         if not database_file_url: raise Exception('Provide the --database_file command line argument')
         version_number = get_server_version(url, port)
+        _file = open(database_file_url).read()
         if version_number == 9:
-            data = urllib.urlencode({'name':database_name, 'master_pwd':master_password, 'backup_file':database_file_url, 'copy': True})
+            data = {'name':database_name, 'master_pwd':master_password, 'copy': True}
+            files = { 'backup_file':_file}
         elif version_number == 8:
-            data = urllib.urlencode({'new_db': database_name, 'restore_pwd':master_password, 'db_file':open(database_file_url), 'mode':'copy'}, True)
-        request = urllib2.Request(url + ':%s' % (port) + '/web/database/restore' , data=data)
+            data = {'new_db': database_name, 'restore_pwd':master_password, 'mode':'copy'}
+            files = { 'db_file':_file}
+        else:
+            data = {'new_db': database_name, 'restore_pwd':master_password}
+            files = { 'db_file':_file}
+        requests.post(url + ':%s' % (port) + '/web/database/restore' , files=files,
+                      data=data)
         print 'Restoring database to:'
         print url, ':', port
-        open_conn = urllib2.urlopen(request)
-        open_conn.read()
     except Exception, e:
         print '\n'
         print 'Database restoration failure: '
@@ -85,57 +91,13 @@ def main(operation, url, port, database_name, master_password, database_file_url
         print_loading()
         time.sleep(1.0)
         
-# TODO restore database
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--operation', required=True, choices=['backup', 'restore'], help="Choose whether you want to backup or restore a database. Type 'backup' for backing up a database or 'restore' to restore a database to a server")
     parser.add_argument('--server_url', required=True, help="The server's url")
     parser.add_argument('--server_port', required=True, help="The port that the Openerp/Odoo server is listening to")
     parser.add_argument('--database_name', required=True, help="When the operation is 'backup' this is the name of the database to backup, when the operation is 'restore' this will be the new database's name.")
-    parser.add_argument('--database_file', required=False, help="This argument is only applied when the operation is 'restore'. Pass here the *absolute* path to the dataase backup file you want to restore.")
+    parser.add_argument('--database_file', required=False, help="This argument is only applied when the operation is 'restore'. Pass here the *absolute* path to the database backup file you want to restore.")
     parser.add_argument('--admin_password', required=True, help="The admin pass of the Odoo server.")
     args = parser.parse_args()
     main(args.operation, args.server_url, args.server_port, args.database_name, args.admin_password, args.database_file,)
-
-
-
-# if __name__ == '__main__':
-#     try:
-#         main(url=sys.argv[1], port=sys.argv[2] , database_name=sys.argv[3], master_password=sys.argv[4])
-#     except IndexError:
-#         print "Usage: python odoo_remote_backup.py operation('backup'|'restore') server_url server_port database_name admin_password"
-#         print "When you backup a database the 'database_name' parameter should be the database name of the remote database"
-#         print "When you restore a database to a remote server the 'database_name' parameter should be a " 
-#     except Exception, e:
-#         print e
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
