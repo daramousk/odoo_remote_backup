@@ -1,5 +1,6 @@
 ## Works for openerp v7, odoo v8, odoo v9
-
+## On version 9 there was a bug that prohibited the backing up of a database. This has been resolved in https://github.com/odoo/odoo/issues/13192,
+## make sure you update the server files up until that commit 54e4f3f96b0a93bbdee5cdffd6f671b812644a67
 
 Run the following command
 
