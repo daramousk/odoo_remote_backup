@@ -25,9 +25,14 @@ def get_backup(url, port, database_name, master_password):
         print url, ':', port
         open_conn = urllib2.urlopen(request)
         response = open_conn.read()
-        _file = open(database_name, 'w')
-        _file.write(response)
-        _file.close()
+        #_file = open(database_name, 'w')
+        #_file.write(response)
+        with open('filename','w') as _file:
+            while True:
+                tmp = response.read(1024)
+                if not tmp:
+                    break 
+                _file.write(tmp)        
     except Exception, e:
         print '\n'
         print 'Backup failure: '
