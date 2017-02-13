@@ -103,6 +103,6 @@ if __name__ == '__main__':
     parser.add_argument('--server_port', required=True, help="The port that the Openerp/Odoo server is listening to")
     parser.add_argument('--database_name', required=True, help="When the operation is 'backup' this is the name of the database to backup, when the operation is 'restore' this will be the new database's name.")
     parser.add_argument('--database_file', required=False, help="This argument is only applied when the operation is 'restore'. Pass here the *absolute* path to the database backup file you want to restore.")
-    parser.add_argument('--admin_password', required=True, help="The admin pass of the Odoo server.")
+    parser.add_argument('--master_password', required=True, help="The master pass of the Odoo server.")
     args = parser.parse_args()
-    main(args.operation, args.server_url, args.server_port, args.database_name, args.admin_password, args.database_file,)
+    main(args.operation, args.server_url, args.server_port, args.database_name, args.master_password, args.database_file,)

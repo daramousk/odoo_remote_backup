@@ -4,7 +4,7 @@
 
 Run the following command
 
-```python odoo_remote_backup --operation {backup,restore} --server_url --server_port --database_name --admin_password --database_file```
+```python odoo_remote_backup --operation {backup,restore} --server_url --server_port --database_name --master_password --database_file```
 
 --database_file is the *absolute* url to the database zip file to restore. This argument is only used when the operation is restore
 
@@ -14,4 +14,4 @@ Backup operation: Running the backup operation will fetch a database backup to y
 
 Restore operation: Running the restore operation will restore a database backup to a remote machine.
 
-*Note*: Unfortunately, some errors that might occur on the server side such as database already exists, or wrong admin password do not get propagated back to the script and the script's operation might be falsely reported as successful. If you have any trouble restoring the database on a server later on, check the server logs for any errors.
+*Note*: Unfortunately, some errors that might occur on the server side such as database already exists, or wrong master password do not get propagated back to the script and the script's operation might be falsely reported as successful. If you have any trouble restoring the database on a server later on, check the server logs for any errors.
